@@ -2,9 +2,12 @@ package billing.service
 
 import org.springframework.web.reactive.function.server.coRouter
 
-class Router(private val handler: Handler) {
+class Router(private val baseUrl : String, private val handler: Handler) {
 
     fun routes() = coRouter {
-        GET("/billing", handler::getBilling)
+
+        baseUrl.nest {
+            GET("/billing", handler::getBilling)
+        }
     }
 }

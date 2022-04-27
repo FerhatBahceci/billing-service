@@ -64,6 +64,8 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
+
+//TODO fix protoc gen
 protobuf {
 	protoc {
 		artifact = "com.google.protobuf:protoc:${protobufVersion}"
