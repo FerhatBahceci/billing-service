@@ -1,4 +1,8 @@
 package billing.service.service
 
-class BillingService {
+import billing.service.gateway.BillingGateway
+
+class BillingService(private val gateway: BillingGateway) {
+    suspend fun getBilling(name: String) =
+        gateway.getBilling(name)
 }

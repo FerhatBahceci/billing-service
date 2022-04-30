@@ -5,9 +5,11 @@ import kotlinx.coroutines.reactor.awaitSingle
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 
-class Handler(private val service : BillingService) {
+class Handler(private val service: BillingService) {
 
-    suspend fun getBilling(request : ServerRequest) : ServerResponse {
-        return ServerResponse.ok().build().awaitSingle()
+    suspend fun getBilling(request: ServerRequest): ServerResponse {
+        val name = request.pathVariable("name")
+        val billing = service.getBilling(name)
+        return ServerResponse.ok().bodyValue(billing).awaitSingle()
     }
 }

@@ -1,3 +1,4 @@
+import com.google.protobuf.gradle.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -6,7 +7,6 @@ plugins {
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	id("com.google.protobuf") version "0.8.18"
-
 }
 
 group = "ferhat"
@@ -64,8 +64,6 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
-
-//TODO fix protoc gen
 protobuf {
 	protoc {
 		artifact = "com.google.protobuf:protoc:${protobufVersion}"
@@ -78,7 +76,6 @@ protobuf {
 			artifact = "io.grpc:protoc-gen-grpc-kotlin:1.2.1:jdk7@jar"
 		}
 	}
-
 	generateProtoTasks {
 		ofSourceSet("main").forEach {
 			it.generateDescriptorSet = true
@@ -90,4 +87,3 @@ protobuf {
 		}
 	}
 }
-
