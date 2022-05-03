@@ -10,5 +10,5 @@ fun beans() =
         bean { BillingGatewayImpl() }
         bean { BillingService(ref()) }
         bean { Handler(ref()) }
-        bean { Router(ref(), ref()).routes() }
+        bean { Router(ref()).routes() }
     }

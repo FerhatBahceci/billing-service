@@ -6,15 +6,15 @@ import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 
 @SpringBootApplication
-class Application
+class App
 
 fun main(args: Array<String>) {
-	runApplication<Application>(*args) {
-		addInitializers(BeanInitializer())
+	runApplication<App>(*args) {
+		addInitializers(BeansInitializer())
 	}
 }
 
-class BeanInitializer : ApplicationContextInitializer<GenericApplicationContext> {
+class BeansInitializer : ApplicationContextInitializer<GenericApplicationContext> {
 
 	override fun initialize(applicationContext: GenericApplicationContext) {
 		beans().initialize(applicationContext)
