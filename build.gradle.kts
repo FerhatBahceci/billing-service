@@ -1,6 +1,4 @@
-/*
 import com.google.protobuf.gradle.*
-*/
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5
 import org.springframework.cloud.contract.verifier.config.TestMode.EXPLICIT
@@ -15,12 +13,12 @@ val kotlinVersion = "1.6.21"
 
 plugins {
     val kotlinVersion = "1.6.21"
+    kotlin("plugin.spring") version kotlinVersion
     id("org.springframework.boot") version "2.6.7"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("org.springframework.cloud.contract") version "3.1.2"
     id("org.jetbrains.kotlin.plugin.serialization") version kotlinVersion
     id("com.google.protobuf") version "0.8.18"
-    kotlin("plugin.spring") version kotlinVersion
     kotlin("jvm") version "1.6.21"
 }
 
@@ -82,4 +80,28 @@ contracts {
     testMode.set(EXPLICIT)
     baseClassForTests.set("billing.service.BillingBase")
     contractsDslDir.set(File("${project.rootDir}/src/contractTest/contracts"))
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+    }
+    plugins {
+        id("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+        }
+        id("grpckt") {
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.2.1:jdk7@jar"
+        }
+    }
+    generateProtoTasks {
+        ofSourceSet("main").forEach {
+            it.generateDescriptorSet = true
+            it.descriptorSetOptions.includeImports = true
+            it.plugins {
+                id("grpc")
+                id("grpckt")
+            }
+        }
+    }
 }
