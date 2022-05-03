@@ -3,8 +3,7 @@ import com.google.protobuf.gradle.*
 */
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5
-import org.springframework.cloud.contract.verifier.config.TestMode.MOCKMVC
-import org.springframework.cloud.contract.verifier.plugin.ContractVerifierExtension
+import org.springframework.cloud.contract.verifier.config.TestMode.EXPLICIT
 
 group = "ferhat"
 version = "0.0.1-SNAPSHOT"
@@ -20,9 +19,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("org.springframework.cloud.contract") version "3.1.2"
     id("org.jetbrains.kotlin.plugin.serialization") version kotlinVersion
-/*
     id("com.google.protobuf") version "0.8.18"
-*/
     kotlin("plugin.spring") version kotlinVersion
     kotlin("jvm") version "1.6.21"
 }
@@ -48,12 +45,10 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka-streams")
     implementation("org.springframework.kafka:spring-kafka")
 
-/*
     implementation("io.grpc:grpc-protobuf:$grpcVersion")
     implementation("io.grpc:grpc-kotlin-stub:1.2.1")
     implementation("com.google.protobuf:protobuf-java:$protobufVersion")
     compileOnly("io.grpc:grpc-all:${grpcVersion}")
-*/
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
@@ -82,34 +77,9 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-
 contracts {
     testFramework.set(JUNIT5)
-    testMode.set(MOCKMVC)
-    baseClassForTests.set("billing.service.AppBase")
+    testMode.set(EXPLICIT)
+    baseClassForTests.set("billing.service.BillingBase")
     contractsDslDir.set(File("${project.rootDir}/src/contractTest/contracts"))
 }
-
-/*protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:${protobufVersion}"
-    }
-    plugins {
-        id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
-        }
-        id("grpckt") {
-            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.2.1:jdk7@jar"
-        }
-    }
-    generateProtoTasks {
-        ofSourceSet("main").forEach {
-            it.generateDescriptorSet = true
-            it.descriptorSetOptions.includeImports = true
-            it.plugins {
-                id("grpc")
-                id("grpckt")
-            }
-        }
-    }
-}*/

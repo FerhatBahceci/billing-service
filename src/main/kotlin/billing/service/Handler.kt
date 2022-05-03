@@ -8,8 +8,12 @@ import org.springframework.web.reactive.function.server.ServerResponse
 class Handler(private val service: BillingService) {
 
     suspend fun getBilling(request: ServerRequest): ServerResponse {
+
         val name = request.pathVariable("name")
         val billing = service.getBilling(name)
-        return ServerResponse.ok().bodyValue(billing).awaitSingle()
+
+        return ServerResponse.ok()
+            .bodyValue(billing)
+            .awaitSingle()
     }
 }

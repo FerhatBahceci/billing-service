@@ -9,8 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
 
 @SpringBootTest(
-    classes = [App::class])
-abstract class AppBase {
+    classes = [App::class],
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+)
+abstract class BillingBase {
 
 	@LocalServerPort
     var port = 0
@@ -20,7 +22,9 @@ abstract class AppBase {
 
     @BeforeEach
     fun setup() {
-        RestAssured.baseURI = "http://localhost:" + this.port;
+
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = this.port;
 
         coEvery {
             gateway.getBilling(any())
