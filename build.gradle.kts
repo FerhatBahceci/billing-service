@@ -5,7 +5,7 @@ import org.springframework.cloud.contract.verifier.config.TestMode.EXPLICIT
 
 group = "ferhat"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_16
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 val protobufVersion = "3.20.1"
 val grpcVersion = "1.45.1"
@@ -67,7 +67,7 @@ dependencyManagement {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "16"
+        jvmTarget = "17"
     }
 }
 
