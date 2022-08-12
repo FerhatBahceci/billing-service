@@ -9,17 +9,17 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 val protobufVersion = "3.20.1"
 val grpcVersion = "1.45.1"
-val kotlinVersion = "1.6.21"
+val kotlinVersion = "1.7.10"
 
 plugins {
-    val kotlinVersion = "1.6.21"
+    val kotlinVersion = "1.7.10"
     kotlin("plugin.spring") version kotlinVersion
-    id("org.springframework.boot") version "2.6.7"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    id("org.springframework.cloud.contract") version "3.1.2"
+    id("org.springframework.boot") version "2.7.2"
+    id("io.spring.dependency-management") version "1.0.13.RELEASE"
+    id("org.springframework.cloud.contract") version "3.1.3"
     id("org.jetbrains.kotlin.plugin.serialization") version kotlinVersion
     id("com.google.protobuf") version "0.8.18"
-    kotlin("jvm") version "1.6.21"
+    kotlin("jvm") version kotlinVersion
 }
 
 repositories {
